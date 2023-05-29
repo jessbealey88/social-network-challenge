@@ -184,7 +184,7 @@ expect(repo.all).to include(
 repo = PostRepository.new
 repo.delete(1)
 post = repo.find(1)
-# Expect user to not exist
+post.length #=> 0
 
 
 ```
@@ -202,15 +202,15 @@ This is so you get a fresh table contents every time you run the test suite.
 
 # file: spec/user_account_repository_spec.rb
 
-def reset_user_accounts_table
+def reset_posts_table
   seed_sql = File.read('spec/seeds_socialnetwork.sql')
   connection = PG.connect({ host: '127.0.0.1', dbname: 'social_network_test' })
   connection.exec(seed_sql)
 end
 
-describe UserAccountRepository do
+describe PostRepository do
   before(:each) do 
-    reset_user_accounts_table
+    reset_posts_table
   end
 
   # (your tests will go here).
